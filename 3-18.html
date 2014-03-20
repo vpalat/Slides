@@ -1,0 +1,517 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Keys, Values and CoreData</title>
+
+		<meta name="description" content="">
+		<meta name="author" content="Jay Palat">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+    <section>
+        <section>
+            <h1>Key, Values and&nbsp;<span style="font-size: 115.362px;">CoreData</span>
+        </h1>
+    </section>
+    <section>
+        <h2>Review</h2>
+        <div style="text-align: left; ">
+            <ul>
+                <li>Assignment 4 Due Thursday!</li>
+                <li>Maps?</li>
+                <li>NSDictionary Refresher</li>
+                <li>CoreData &nbsp;ground work.</li>
+            </ul>
+        </div>
+    </section>
+</section>
+<section>
+    <section>NSDictionary<div>
+        <br>
+    </div>
+    <div>We talked about NSDictionary briefly in the second week.</div>
+    <div>
+        <br>
+    </div>
+    <div>It should be a familiar concept</div>
+    <div>
+        <br>
+    </div>
+    <div>Hashmap &lt;String, Object&gt;</div>
+    <div>
+        <br>
+    </div>
+    <div>There is a mutable version, of course.</div>
+</section>
+<section>
+    <h2>What's a HashMap?</h2>
+    <div>
+        <br>
+    </div>
+    <div>From Wikipedia: In computing, a hash table (also hash map) is a data structure used to implement an associative array, a structure that can map keys to values.A hash table uses a hash function to compute an index into an array of buckets or slots, from which the correct value can be found.<br>
+    </div>
+</section>
+<section>
+    <h2>What's a HashMap?</h2>
+    <div>(cont'd)</div>
+    <div>
+        <br>
+    </div>
+    <div>In plain English, a HashMap is very similar to an associative array in PHP where you store your values in a structure and index them with a key instead of a numeric index (as you would in an array)</div>
+</section>
+<section>
+    <h2>Why?</h2>
+    <div>
+        <br>
+    </div>
+    <div>HashMaps (and in our case, NSDictionaries) are really useful in that they can store arbitrary Object types and can be indexed using a system which we define. For example, storing the String containing a user’s name in a datastore with a key of “username”<br>
+    </div>
+</section>
+<section>
+    <h2>Why is it called hashing?</h2>
+    <div>
+        <br>
+    </div>
+    <div>There is a hashing function such that</div>
+    <div>
+        <br>
+    </div>
+    <div class="absolute-element" style="position: absolute; width: 185px; height: 46px; z-index: 4; left: 374px; top: 199px;">hash(x) = y</div>
+    <div>
+        <div>index = y % array_size</div>
+    </div>
+    <div>
+        <br>
+    </div>
+    <div class="absolute-element" style="position: absolute; width: 441.35341365461846px; height: 0px; z-index: 4; left: 412px; top: 549px; max-height: none; max-width: none;">
+        <span class="mw-cite-backlink" style="font-family: sans-serif; font-size: 12.550200462341309px; font-style: normal; font-variant: normal; color: rgb(0, 0, 0); text-align: left;">
+            <b>
+            <a href="http://en.wikipedia.org/wiki/Hash_table#cite_ref-Cormen_et_al_1-0" style="color: rgb(11, 0, 128); background-image: none;">^</a>
+        </b>
+    </span>
+    <span style="color: rgb(0, 0, 0); font-family: sans-serif; font-size: 12.550200462341309px; font-style: normal; font-variant: normal; text-align: left; background-color: rgb(221, 238, 255);">&nbsp;</span>
+    <span class="reference-text" style="font-family: sans-serif; font-size: 12.550200462341309px; font-style: normal; font-variant: normal; color: rgb(0, 0, 0); text-align: left;">
+        <a href="http://en.wikipedia.org/wiki/Thomas_H._Cormen" title="Thomas H. Cormen" style="color: rgb(11, 0, 128); background-image: none;">Thomas H. Cormen</a>&nbsp;[et al.] (2009).&nbsp;<i>
+            <a href="http://en.wikipedia.org/wiki/Introduction_to_Algorithms" title="Introduction to Algorithms" style="color: rgb(11, 0, 128); background-image: none;">Introduction to Algorithms</a>
+            </i>&nbsp;(3rd ed.). Massachusetts Institute of Technology. pp.&nbsp;253–280.&nbsp;<a href="http://en.wikipedia.org/wiki/International_Standard_Book_Number" title="International Standard Book Number" style="color: rgb(11, 0, 128); background-image: none;">ISBN</a>&nbsp;<a href="http://en.wikipedia.org/wiki/Special:BookSources/978-0-262-03384-8" title="Special:BookSources/978-0-262-03384-8" style="color: rgb(11, 0, 128); background-image: none;">978-0-262-03384-8</a>.</span>
+            <br>
+        </div>
+        <div class="absolute-element" style="position: absolute; width: 318.02208835341366px; height: 374px; z-index: 4; left: 59px; top: 304px; max-height: none; max-width: none;">
+            <table class="infobox" style="font-size: 11px; border: 1px solid rgb(170, 170, 170); background-color: rgb(249, 249, 249); color: rgb(0, 0, 0); margin: 0.5em 0px 0.5em 1em; padding: 0.2em; clear: right; text-align: left; font-family: sans-serif; font-style: normal; font-variant: normal; width: 22em;">
+                <tbody>
+                    <tr>
+                        <th colspan="3" class="navbox-abovebelow" style="padding-top: 0.25em; padding-bottom: 0.25em; padding-left: 1em; text-align: center; background-color: rgb(221, 221, 255); vertical-align: top;">
+                            <a href="http://en.wikipedia.org/wiki/Time_complexity" title="Time complexity" style="color: rgb(11, 0, 128); background-image: none;">Time complexity</a>
+                            <br>in&nbsp;<a href="http://en.wikipedia.org/wiki/Big_O_notation" title="Big O notation" style="color: rgb(11, 0, 128); background-image: none;">big O notation</a>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;">
+                        </td>
+                        <td style="vertical-align: top;">Average</td>
+                        <td style="vertical-align: top;">Worst case</td>
+                    </tr>
+                    <tr>
+                        <th style="vertical-align: top;">Space</th>
+                        <td style="vertical-align: top;">O(<i>n</i>)<sup id="cite_ref-Cormen_et_al_1-0" class="reference" style="unicode-bidi: -webkit-isolate; font-style: normal;">
+                            <a href="http://en.wikipedia.org/wiki/Hash_table#cite_note-Cormen_et_al-1" style="color: rgb(11, 0, 128); background-image: none; white-space: nowrap;">[1]</a>
+                        </sup>
+                    </td>
+                    <td style="vertical-align: top;">O(<i>n</i>)</td>
+                </tr>
+                <tr>
+                    <th style="vertical-align: top;">Search</th>
+                    <td style="vertical-align: top;">O(1)</td>
+                    <td style="vertical-align: top;">O(<i>n</i>)</td>
+                </tr>
+                <tr>
+                    <th style="vertical-align: top;">Insert</th>
+                    <td style="vertical-align: top;">O(1)</td>
+                    <td style="vertical-align: top;">O(<i>n</i>)</td>
+                </tr>
+                <tr>
+                    <th style="vertical-align: top;">Delete</th>
+                    <td style="vertical-align: top;">O(1)</td>
+                    <td style="vertical-align: top;">O(<i>n</i>)</td>
+                </tr>
+            </tbody>
+        </table>
+        <ol class="references" style="margin-top: 0.3em; margin-bottom: 0.5em; margin-left: 3.2em; list-style-image: none; font-size: 12px; list-style-type: inherit; color: rgb(0, 0, 0); font-family: sans-serif; font-style: normal; font-variant: normal; background-color: rgb(255, 255, 255);">
+            <li id="cite_note-Cormen_et_al-1" style="margin-bottom: 0.1em; background-color: rgb(221, 238, 255);">
+                <span class="mw-cite-backlink">
+                    <b>
+                    <a href="http://en.wikipedia.org/wiki/Hash_table#cite_ref-Cormen_et_al_1-0" style="color: rgb(11, 0, 128); background-image: none;">
+                        <span class="cite-accessibility-label" style="top: -99999px; clip: rect(1px 1px 1px 1px); overflow: hidden; position: absolute !important; height: 1px !important; width: 1px !important;">Jump up</span>
+                        <br>
+                    </a>
+                </b>
+            </span>
+        </li>
+    </ol>
+</div>
+</section>
+</section>
+<section>
+    <br>
+    <div class="absolute-element" style="position: absolute; width: 883.2951807228916px; height: 502px; z-index: 4; left: 46px; top: 61px; max-height: none; max-width: none;">
+        <p>Creating</p>
+        <p>
+        <br>
+    </p>
+    <p>
+    <br>
+</p>
+<p>Adding</p>
+<pre><code> [dict setObject:[NSNumber numberWithFloat:1.2f] forKey:@"SomeNumber"];</code></pre>
+<p>
+<br>
+</p>
+<p>
+<br>
+</p>
+<p>Retrieving</p>
+<pre><code> NSNumber *theNumber = [dict objectForKey:@"SomeNumber"];</code></pre>
+<div class="absolute-element" style="position: absolute; width: 949.8855421686746px; height: 64px; z-index: 6; left: 14px; top: 94px; max-height: none; max-width: none;">
+<pre><p></p><p><code><font style="font-size: 18px;"> NSMutableDictionary * dict =  [NSMutableDictionary dictionaryWithCapacity:1];</font></code></p><p></p><p></p></pre>
+</div>
+</div>
+</section>
+<section>
+    <section>
+        <h2>Key / Value</h2>
+        <div>
+            <ul>
+                <li>One of the underlying drivers of data storage</li>
+                <li>Think of a database with rows and columns, these are key/values</li>
+            </ul>
+        </div>
+    </section>
+    <section>
+        <h2>CoreData</h2>
+        <div>
+            <br>
+        </div>
+        <p>
+    </p>
+    <ul>
+        <li>CoreData is an object persistence frame for iOS and MacOS</li>
+        <li>
+            <span>You use a built-in-to-Xcode tool to design our model</span>
+        </li>
+        <li>
+            <span>There are Contexts and Persistent Store Coordinators</span>
+        </li>
+        <li>
+            <span>Core Data seems like a database but it isn't one.</span>
+            <br>
+        </li>
+    </ul>
+    <p>
+</p>
+</section>
+<section>
+    <h2>Key/Value</h2>
+    <p>
+    <br>
+</p>
+<p class="absolute-element" style="position: absolute; width: 963px; height: 185px; z-index: 4; left: 1px; top: 195px;">
+</p>
+<ul>
+    <li>Core Data is driven completely on the K/V concept (although they hide it from you)</li>
+    <li>Core Data is not a database (but it acts a little bit like one)</li>
+</ul>
+<p>
+</p>
+</section>
+<section>
+    <h2>Read Up!</h2>
+    <div>
+        <br>
+    </div>
+    <div>
+        <br>
+    </div>
+    <div>
+        <a href="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/CoreData/Articles/cdBasics.html#//apple_ref/doc/uid/TP40001650-TP1">Core Data Basics</a>
+    </div>
+    <div>
+        <br>
+    </div>
+    <div>I asked that you read the linked section in this document. &nbsp;I hope you did, but if not you've got another day or two.</div>
+</section>
+<section>
+    <h2>NSManagedObject</h2>
+    <div>
+        <br>
+    </div>
+    <p>A managed object is a model object (in the model-view-controller sense) that represents a record from a persistent store. A managed object is an instance of NSManagedObject or a subclass NSManagedObject. &nbsp;A managed object is registered with a &nbsp;managed object context. &nbsp;In any given context, there is at most one instance of a managed object that corresponds to a given record in a persistent store.</p>
+</section>
+<section>
+    <h2>NSManagedObjectContext</h2>
+    <div>
+        <br>
+    </div>
+    <p>A manage object context represents a single object space, or scratch pad, in a &nbsp;Core Data application. &nbsp;A managed object &nbsp;context is an instance of NSManagedObjectContext. Its primary responsibility is to manage a collection of managed objects. &nbsp;These managed objects represent an internally consistent view of one or more persistent stores. &nbsp;The context is a powerful object with a central role in the lifecycle of managed objects, with responsibilities from lifecycle management (including faulting) to validation, inverse relationship handling and undo/redo.</p>
+</section>
+<section>
+    <h2>NSPersistentStoreCoordinator</h2>
+    <div>
+        <br>
+    </div>
+    <p>A persistent store coordinator associates persistent object stores and a managed object model, and presents a facade to managed object contexts such that a group of persistent stores appears as a single aggregate store. &nbsp;A persistent store coordinator is an instance of NSPersistentStoreCoordinator. &nbsp;It has a reference to a managed object model that describes the entities in the store or stores it manages.</p>
+</section>
+<section>
+    <h2>Bringing it together</h2>
+    <img src="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/CoreData/Art/advanced_persistence_stack_2x.png" class="absolute-element" style="position: absolute; max-height: none; max-width: none; width: 492.518404225999px; height: 525.8554217959024px; z-index: 4; left: 247px; top: 126px;">
+</section>
+<section>
+    <p>All these things together make the "CoreData Stack"</p>
+    <p>
+    <br>
+</p>
+<p>Apple has take great care and spent years making this thing CRAZY robust and predictable. &nbsp;It hides a lot of implementation detail from, and as result can be conceptually confusing for the following reasons</p>
+</section>
+<section>
+    <h2 class="absolute-element" style="position: absolute; width: 832px; height: 64px; z-index: 4; left: 56px; top: 281px;">CoreData is not a Database.</h2>
+</section>
+<section>
+    <p>Databases are full blown servers with threading models, data integrity locks, system-wide transactions, sockets collision prevention, and very complex queuing.</p>
+    <p>
+    <br>
+</p>
+<p>CoreData is a serialized object graph, which means that somewhere, on a disk, is a persistent copy of a NSManagedObject. You ask for it, CoreData produces it in a way that isn't obvious.</p>
+</section>
+<section>
+    <h2>Example</h2>
+    <p>If I query for a "Fruit" object that I have stored in CoreData, I can query for the set of only Yellow fruit. &nbsp;Remember that we've also got a name and a shape in there.</p>
+    <p>
+    <br>
+</p>
+<p>CoreData will not necessarily load the name or shape from the disk until we ask for them in an attempt to save time and memory.&nbsp;</p>
+<p>
+<br>
+</p>
+<p>This is called a "fault" which in the case of CoreData isn't automatically a bad state.</p>
+</section>
+<section>
+    <h2>Faults</h2>
+    <div>
+        <br>
+    </div>
+    <div>
+        <p>
+    </p>
+    <ul>
+        <li>Let's say we have our "Cart" and that cart is a core data datastore. &nbsp;We have 10K pieces of fruit of varying characteristics&nbsp;</li>
+        <li>We want to count all the Yellow Fruit named "Cavendish"</li>
+        <li>We need to look at 2/3 of our Strings to determine this.</li>
+    </ul>
+    <p>
+</p>
+</div>
+</section>
+<section>
+    <p>
+</p>
+<ul>
+    <li>
+        <span style="text-align: center;">When we query for that fruit, we want to get that info quickly. &nbsp;For 10K pieces of fruit, if they are all yellow cavendish, we've got 20K strings to load off the&nbsp;disk and copy into user memory to operate on.</span>
+        <br>
+    </li>
+    <li>
+        <span style="text-align: center;">If we&nbsp;never look at the shape property, why spend the time&nbsp;not he 10K other strings.</span>
+    </li>
+    <li>
+        <span style="text-align: center;">But what if do want to inspect the shape of one of those fruits?</span>
+    </li>
+</ul>
+<p>
+</p>
+</section>
+<section>
+    <p>
+</p>
+<ul>
+    <li>
+        <span style="text-align: center;">Instead of CoreData filling every shape property of every one of those 10K fruit objects, the assumption is that when we attempt to query that property ([somefruit shape]) - CoreData loads just that value from the disk and backfills it under the covers for us.</span>
+        <br>
+    </li>
+    <li>
+        <span style="text-align: center;">If we iterate over every fruit and ask for shape, we're undoing the value of those faults, but there are sometimes fine reasons to do so to be sure.</span>
+    </li>
+</ul>
+<p>
+</p>
+</section>
+<section>
+    <h2>Complication</h2>
+    <div>
+        <br>
+    </div>
+    <div>
+        <br>
+    </div>
+    <p>When in a multithreaded environment, CoreData can cause some complexity because its just like opening a file from multiple Threads - depending on when you read and write, you may or may not have up to date copies of the data to work against.</p>
+</section>
+<section>
+    <h2>Thought Experiment</h2>
+    <div>
+        <br>
+    </div>
+    <p>
+</p>
+<ul>
+    <li>You have an envelope with strips of paper of three different colors.</li>
+</ul>
+<div style="text-align: left;">
+    <br>
+</div>
+<div style="text-align: left;">
+    <ul>
+        <li>You and I want to count each color and compare results.</li>
+    </ul>
+    <div>
+        <br>
+    </div>
+    <div>
+        <ul>
+            <li>So you pull all the strips and count them, satisfied that you've got an accurate count...</li>
+        </ul>
+    </div>
+</div>
+<p>
+</p>
+</section>
+<section>
+    <p>
+</p>
+<ul>
+    <li>
+        <span style="text-align: center;">Everything is going fine, until as you're finishing up, I start counting and someone adds more strips.</span>
+        <br>
+    </li>
+</ul>
+<div>
+    <br>
+</div>
+<div>
+    <ul>
+        <li>I finish counting and we no longer agree, or we might still agree, except we both worked from what was ostensibly the same source material (the envelope)</li>
+    </ul>
+    <div style="text-align: left;">
+        <br>
+    </div>
+</div>
+<div style="text-align: left;">
+    <ul>
+        <li>What we need to do is Coordinate the source and let each other know about any changes that happen to the source as we're using it as truth.</li>
+    </ul>
+</div>
+<p>
+</p>
+</section>
+<section>
+    <h2>Coordination</h2>
+    <div>
+        <br>
+    </div>
+    <p>There is a global Notification center in iOS called, unsurprisingly, the NSNotificationCenter.</p>
+    <p>
+    <br>
+</p>
+<p>Your classes can register to receive notifications from object and execute selectors when you get a notification.</p>
+<p>
+<br>
+</p>
+<p>These exist in CoreData specifically because of the situation on the previous slides.</p>
+</section>
+<section>
+    <h2>Big Three Notifications</h2>
+    <div>
+        <br>
+    </div>
+    <p class="absolute-element" style="position: absolute; width: 1069.570281124498px; height: 128px; z-index: 4; left: -25px; top: 145px; max-height: none; max-width: none;">
+    </p>
+    <ul>
+        <li>
+            <font style="font-size: 32px;">NSManagedObjectContextWillSaveNotification</font>
+        </li>
+        <li>
+            <font style="font-size: 32px;">NSManagedObjectContextDidSaveNotification</font>
+        </li>
+        <li>
+            <font style="font-size: 32px;">NSManagedObjectContextObjectsDidChangeNotification</font>
+        </li>
+    </ul>
+    <p>
+</p>
+</section>
+</section>
+</div>
+
+
+			</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
